@@ -7,5 +7,3 @@ updates:
     labels:
     - "ok-to-test"
     - "dependencies"
-    - "release-note-none"
-    - "kind/misc"
