@@ -15,6 +15,10 @@ containerdConfigPatches:
 - |-
   [plugins."io.containerd.grpc.v1.cri".registry]
     config_path = "/etc/containerd/certs.d"
+  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."registry.registry.svc.cluster.local:32222"]
+    endpoint = ["http://registry.registry.svc.cluster.local:32222"]
+  [plugins."io.containerd.grpc.v1.cri".registry.configs."registry.registry.svc.cluster.local:32222".tls]
+    insecure_skip_verify = true
 EOF
 kind export kubeconfig
 
