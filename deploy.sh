@@ -8,7 +8,14 @@ shopt -s inherit_errexit
 set -xeu -o pipefail
 
 kind delete cluster
-kind create cluster
+cat <<EOF | kind create cluster --config=-
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+containerdConfigPatches:
+- |-
+  [plugins."io.containerd.grpc.v1.cri".registry]
+    config_path = "/etc/containerd/certs.d"
+EOF
 kind export kubeconfig
 
 source .env
