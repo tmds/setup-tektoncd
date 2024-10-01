@@ -71,6 +71,15 @@ spec:
     app: registry
 EOS
 
+phase "Adding local registry to containerd config"
+REGISTRY_DIR="/etc/containerd/certs.d/registry.${REGISTRY_NAMESPACE}.svc.cluster.local:32222"
+for node in $(kind get nodes); do
+  docker exec "${node}" mkdir -p "${REGISTRY_DIR}"
+  cat <<EOF | docker exec -i "${node}" cp /dev/stdin "${REGISTRY_DIR}/hosts.toml"
+[host."http://localhost:32222"]
+EOF
+done
+
 
 phase "Waiting for Registry rollout"
 rollout_status "${REGISTRY_NAMESPACE}" "registry"
