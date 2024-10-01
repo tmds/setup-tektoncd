@@ -13,8 +13,6 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 containerdConfigPatches:
 - |-
-  [plugins."io.containerd.grpc.v1.cri".registry]
-    config_path = "/etc/containerd/certs.d"
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."registry.registry.svc.cluster.local:32222"]
     endpoint = ["http://registry.registry.svc.cluster.local:32222"]
   [plugins."io.containerd.grpc.v1.cri".registry.configs."registry.registry.svc.cluster.local:32222".tls]
